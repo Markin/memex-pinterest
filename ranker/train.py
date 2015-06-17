@@ -57,20 +57,25 @@ def get_informative_features_binary(vec, clf, top):
 
 
 def _tree2text(tree):
-    cleaner = lxml.html.clean.Cleaner(
-        style=True, 
-        scripts=True, 
-        javascript=True, 
-        comments=True, 
-        embedded=True, 
-        forms=False, 
-        page_structure=False,
-    )
-    
-    tree = cleaner.clean_html(tree)
-    html = lxml.html.tostring(tree)
-    doc = lxml.html.document_fromstring(html)
-    return ' '.join(doc.text_content().split())
+
+    try:
+        cleaner = lxml.html.clean.Cleaner(
+            style=True, 
+            scripts=True, 
+            javascript=True, 
+            comments=True, 
+            embedded=True, 
+            forms=False, 
+            page_structure=False,
+        )
+
+        tree = cleaner.clean_html(tree)
+        html = lxml.html.tostring(tree)
+        doc = lxml.html.document_fromstring(html)
+        return ' '.join(doc.text_content().split())
+    except:
+        print "failed to stringify doc, skipping it"
+        return ""
     
 def prepare_htmltext(html):
     tree = lxml.html.fromstring(html)
