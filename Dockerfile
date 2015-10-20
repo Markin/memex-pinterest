@@ -11,6 +11,7 @@ RUN pip install \
 	pymongo \
 	scrapy \
 	scrapyd \
+	scrapyd-client \
 	python-scrapyd-api \
 	lxml \
 	service_identity \
@@ -39,9 +40,9 @@ WORKDIR /tldextract
 RUN python setup.py install
 
 WORKDIR /
-RUN git clone https://github.com/scrapinghub/crawl-frontier.git /crawl-frontier
+RUN git clone https://github.com/scrapinghub/frontera.git /crawl-frontier
 WORKDIR /crawl-frontier
-RUN git checkout development
+#RUN git checkout development
 RUN python setup.py install
 
 ADD . /memex-pinterest
